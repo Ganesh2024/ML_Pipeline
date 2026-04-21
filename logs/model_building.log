@@ -8,3 +8,9 @@
 2026-04-20 22:43:49,522 - model_building - DEBUG - Model training started with 4152 samples
 2026-04-20 22:43:49,625 - model_building - DEBUG - Model training completed
 2026-04-20 22:43:49,628 - model_building - DEBUG - Model saved to models/model.pkl
+2026-04-21 14:40:06,220 - model_building - DEBUG - Parameters retrieved from params.yaml
+2026-04-21 14:40:06,234 - model_building - DEBUG - Data loaded from ./data/processed/train_tfidf.csv with shape (4152, 51)
+2026-04-21 14:40:06,236 - model_building - DEBUG - Intializing RaandomForest model with parameters: {'n_estimators': 25, 'random_state': 2}
+2026-04-21 14:40:06,236 - model_building - DEBUG - Model training started with 4152 samples
+2026-04-21 14:40:06,313 - model_building - DEBUG - Model training completed
+2026-04-21 14:40:06,316 - model_building - DEBUG - Model saved to models/model.pkl
