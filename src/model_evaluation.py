@@ -9,7 +9,7 @@ from dvclive import Live
 from sklearn.metrics  import accuracy_score, precision_score, recall_score, roc_auc_score
 
 log_dir = 'logs'
-os.makedirs('log_dir', exist_ok=True)
+os.makedirs(log_dir, exist_ok=True)
 
 # logging configuration
 logger = logging.getLogger('model_evaluation')
@@ -58,7 +58,7 @@ def load_model(file_path: str):
         logger.error('File not found: %s', file_path)
         raise
     except Exception as e:
-        logger.error('Unexxpected error occured while loading the model: %s', e)
+        logger.error('Unexpected error occured while loading the model: %s', e)
         raise
 
 def load_data(file_path: str) -> pd.DataFrame:
@@ -77,13 +77,13 @@ def load_data(file_path: str) -> pd.DataFrame:
 def evaluate_model(clf, X_test: np.ndarray, y_test: np.ndarray)->dict:
     """ Evaluate the model and return the evaluation metrics """
     try:
-        y_pred = clf.predict_proba(X_test)
+        y_pred = clf.predict(X_test)
         y_pred_proba = clf.predict_proba(X_test)[:,1]
 
         accuracy = accuracy_score(y_test, y_pred)
         precision = precision_score(y_test, y_pred)
         recall = recall_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, y_pred)
+        auc = roc_auc_score(y_test, y_pred_proba)
 
         metrics_dict = {
             'accuracy': accuracy,
@@ -116,7 +116,7 @@ def main():
     try:
         # params = 20
         clf = load_model('./models/model.pkl')
-        test_data = load_data('./data/processed/test_tfiidf.csv')
+        test_data = load_data('./data/processed/test_tfidf.csv')
 
         X_test = test_data.iloc[:,:-1].values
         y_test = test_data.iloc[:,-1].values
@@ -129,11 +129,7 @@ def main():
         save_metrics(metrics, 'reports/metrics.json')
 
     except Exception as e:
-        logger.error("Failed to complete the model evaluation process: %s")
+        logger.error("Failed to complete the model evaluation process: %s",e)
 
-
-
-
-
-
-
+if __name__ == "__main__":
+    main()
